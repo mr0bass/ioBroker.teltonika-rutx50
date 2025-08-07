@@ -14,6 +14,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
+## [1.1.3] - 2025-08-07
+
+### Fixed
+- **CRITICAL: sendTo Parameter Validation**: Fixed parameter validation error that crashed JavaScript adapter
+- **Simplified Callback Handling**: Removed complex callback generation that caused "Parameter options needs to be a real object" error
+- **Stable Blockly Operation**: Blockly blocks now work without crashing the JavaScript adapter
+
+### Technical Changes
+- Simplified sendTo call to basic format: `sendTo(target, command, message)`
+- Only add callback function when logging is specifically requested
+- Removed complex callback generation that triggered ioBroker parameter validation errors
+
 ## [1.1.2] - 2025-08-07
 
 ### Fixed

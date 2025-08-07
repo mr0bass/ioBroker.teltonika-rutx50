@@ -270,17 +270,19 @@ Blockly.JavaScript["sms"] = function (block) {
     messageObj += `    message: ${message}\n`;
     messageObj += "}";
 
-    // Create callback function if log level is set
-    const callbackFn = logLevel
-        ? `function (result) {\n` +
-          `    if (result && result.error) {\n` +
-          `        console.${logLevel}('SMS error: ' + result.error);\n` +
-          `    } else {\n` +
-          `        console.${logLevel}('SMS sent successfully: ' + JSON.stringify(result));\n` +
-          `    }\n` +
-          `}`
-        : "null";
+    // Generate sendTo call - use simple format without callback to avoid parameter validation errors
+    let code = `sendTo('teltonika-rutx50${dropdown_instance}', 'sendSMS', ${messageObj});\n`;
+    
+    // Add logging if requested
+    if (logLevel) {
+        code = `sendTo('teltonika-rutx50${dropdown_instance}', 'sendSMS', ${messageObj}, function(result) {\n` +
+               `    if (result && result.error) {\n` +
+               `        console.${logLevel}('SMS error: ' + result.error);\n` +
+               `    } else {\n` +
+               `        console.${logLevel}('SMS sent successfully');\n` +
+               `    }\n` +
+               `});\n`;
+    }
 
-    // Generate sendTo call with proper parameters: target, command, message, callback
-    return `sendTo('teltonika-rutx50${dropdown_instance}', 'sendSMS', ${messageObj}, ${callbackFn});\n`;
+    return code;
 };
