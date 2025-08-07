@@ -14,6 +14,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
+## [1.1.4] - 2025-08-07
+
+### Fixed  
+- **FINAL FIX: Proper Blockly Implementation**: Removed custom Blockly file - use automatic sendTo blocks instead
+- **Correct ioBroker Approach**: Adapters use `sendto: true` in io-package.json, not custom Blockly files
+- **Automatic Block Generation**: ioBroker JavaScript adapter automatically creates sendTo blocks for all adapters with sendto enabled
+- **Standard Implementation**: Following official ioBroker Blockly documentation approach
+
+### Technical Changes
+- Removed admin/blockly.js entirely (was causing the issues)
+- Set `sendto: true` in io-package.json (enables automatic sendTo blocks)
+- Removed `blockly: true` (not needed for sendTo functionality)
+- Standard onMessage handler works with automatic sendTo blocks
+
 ## [1.1.3] - 2025-08-07
 
 ### Fixed
