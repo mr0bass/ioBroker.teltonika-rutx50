@@ -1,8 +1,16 @@
 {
     "common": {
         "name": "teltonika-rutx50",
-        "version": "1.1.0",
+        "version": "1.1.2",
         "news": {
+            "1.1.2": {
+                "en": "Fixed Blockly sendTo communication - corrected JavaScript generation and enhanced message handling for proper block functionality.",
+                "de": "Behobene Blockly sendTo-Kommunikation - korrigierte JavaScript-Generierung und verbesserte Nachrichtenbehandlung für ordnungsgemäße Block-Funktionalität."
+            },
+            "1.1.1": {
+                "en": "Fixed Blockly functionality - removed conflicting files, fixed missing modem parameter, and corrected hardcoded values.",
+                "de": "Behobene Blockly-Funktionalität - konfliktäre Dateien entfernt, fehlenden Modem-Parameter behoben und hartcodierte Werte korrigiert."
+            },
             "1.1.0": {
                 "en": "Added proper RUTX50 API endpoints for modem detection and status monitoring. Enhanced connection testing with device status checks.",
                 "de": "Korrekte RUTX50-API-Endpunkte für Modem-Erkennung und Statusüberwachung hinzugefügt. Verbesserte Verbindungstests mit Gerätestatus-Checks."

@@ -324,21 +324,40 @@ class TeltonikaRutx50 extends utils.Adapter {
     }
 
     async onMessage(obj) {
+        // Enhanced debugging for Blockly communication
+        this.log.info('=== BLOCKLY MESSAGE RECEIVED ===');
+        this.log.info('Full message object:', JSON.stringify(obj, null, 2));
+        this.log.info('Message type:', typeof obj);
+        this.log.info('Command:', obj?.command);
+        this.log.info('From:', obj?.from);
+        this.log.info('Callback:', obj?.callback);
+        this.log.info('Message data:', JSON.stringify(obj?.message, null, 2));
+        this.log.info('================================');
+        
         if (typeof obj === 'object' && obj.message) {
             if (obj.command === 'sendSMS') {
+                this.log.info('Processing sendSMS command from Blockly');
+                
                 // Handle Blockly SMS send command
                 const { recipient, message } = obj.message;
                 
+                this.log.info(`SMS recipient: ${recipient}`);
+                this.log.info(`SMS message: ${message}`);
+                
                 if (!recipient || !message) {
+                    const errorMsg = 'Recipient and message are required';
+                    this.log.error(errorMsg);
                     this.sendTo(obj.from, obj.command, { 
                         success: false, 
-                        error: 'Recipient and message are required' 
+                        error: errorMsg 
                     }, obj.callback);
                     return;
                 }
 
                 try {
+                    this.log.info(`Sending SMS to ${recipient} via RUTX50 API...`);
                     const result = await this.rutx50Api.sendSMS(recipient, message);
+                    this.log.info('SMS API result:', JSON.stringify(result, null, 2));
                     
                     // Update states
                     await this.setStateAsync('sms.lastMessage', message, true);
@@ -348,25 +367,35 @@ class TeltonikaRutx50 extends utils.Adapter {
                     
                     if (!result.success) {
                         await this.setStateAsync('sms.lastError', result.error || 'Unknown error', true);
+                        this.log.error(`SMS send failed: ${result.error}`);
                     } else {
                         await this.setStateAsync('sms.lastError', '', true);
+                        this.log.info(`SMS sent successfully to ${recipient}`);
                     }
 
+                    this.log.info('Sending response to Blockly:', JSON.stringify(result, null, 2));
                     this.sendTo(obj.from, obj.command, result, obj.callback);
                 } catch (error) {
                     this.log.error(`Blockly SMS send error: ${error.message}`);
-                    this.sendTo(obj.from, obj.command, { 
+                    const errorResult = { 
                         success: false, 
                         error: error.message 
-                    }, obj.callback);
+                    };
+                    this.log.info('Sending error response to Blockly:', JSON.stringify(errorResult, null, 2));
+                    this.sendTo(obj.from, obj.command, errorResult, obj.callback);
                 }
             } else if (obj.command === 'testConnection') {
+                this.log.info('Processing testConnection command');
                 // Test connection command
-                const result = await this.testConnection();
-                this.sendTo(obj.from, obj.command, { 
-                    success: this.connectionStatus 
-                }, obj.callback);
+                await this.testConnection();
+                const result = { success: this.connectionStatus };
+                this.log.info('Connection test result:', JSON.stringify(result, null, 2));
+                this.sendTo(obj.from, obj.command, result, obj.callback);
+            } else {
+                this.log.warn(`Unknown command received: ${obj.command}`);
             }
+        } else {
+            this.log.warn('Invalid message format received:', JSON.stringify(obj, null, 2));
         }
     }
 

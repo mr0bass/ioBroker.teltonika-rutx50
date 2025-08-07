@@ -14,6 +14,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
+## [1.1.2] - 2025-08-07
+
+### Fixed
+- **Blockly SendTo Communication**: Fixed JavaScript generation format for proper sendTo parameter order
+- **Enhanced Debugging**: Added comprehensive logging to onMessage handler to track Blockly communication
+- **Callback Function**: Corrected callback function format in Blockly JavaScript generation
+- **Message Handling**: Improved message validation and error responses for Blockly blocks
+
+### Technical Changes
+- Fixed sendTo call format to use proper parameter order: target, command, message, callback
+- Enhanced onMessage handler with detailed logging for debugging Blockly communication
+- Improved callback function generation with proper error handling
+- Added comprehensive message validation and response handling
+
+## [1.1.1] - 2025-08-07
+
+### Fixed
+- **Blockly Functionality**: Removed conflicting Blockly files (blockly_sendto.js, custom.html) that were preventing blocks from working
+- **Missing Modem Parameter**: Added missing `this.modem` parameter in RUTX50API constructor
+- **Hardcoded Values**: SMS sending now uses configured modem parameter instead of hardcoded "2-1"
+- **File Structure**: Cleaned up duplicate and conflicting Blockly implementations
+- **Communication**: Improved Blockly sendTo communication and error handling
+
+### Technical Changes
+- Removed admin/blockly_sendto.js and admin/custom.html to eliminate conflicts
+- Added `this.modem = options.modem || '2-1'` to RUTX50API constructor
+- Updated SMS sending to use `this.modem` instead of hardcoded modem value
+- Enhanced debugging for sendTo message handling
+- Created test server to validate Blockly functionality
+
+## [1.1.0] - 2025-08-07
+
+### Added
+- **Proper RUTX50 API Endpoints**: Added comprehensive modem detection and status monitoring using official Teltonika API
+- **Device Status Check**: `/unauthorized/status` endpoint for device info without authentication
+- **Modem Availability Check**: `/api/network/mobile` endpoint to detect modem presence and configuration
+- **Enhanced Signal Status**: Proper signal monitoring with modem-specific data (signal_level, operator, connection_state, sim_state)
+- **Comprehensive Connection Testing**: Multi-step validation including device status, authentication, and modem availability
+- **SIM Card Detection**: Checks SIM card presence and state for proper SMS functionality
+- **Network Type Monitoring**: Reports connection type, band information, and network status
+- **Fallback Modem Detection**: Automatically checks configured modem (2-1) and fallback options (1-1)
+
+### Technical Details
+- Enhanced RUTX50API class with proper endpoint integration
+- Added getDeviceStatus(), checkModemAvailability(), and enhanced getSignalStatus() methods
+- Comprehensive error handling for different modem configurations
+- Real-time modem and SIM card status monitoring
+
 ## [1.0.0] - 2025-08-07
 
 ### Added
