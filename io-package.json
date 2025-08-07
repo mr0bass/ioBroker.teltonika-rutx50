@@ -1,0 +1,138 @@
+{
+    "common": {
+        "name": "teltonika-rutx50",
+        "version": "1.1.0",
+        "news": {
+            "1.1.0": {
+                "en": "Added proper RUTX50 API endpoints for modem detection and status monitoring. Enhanced connection testing with device status checks.",
+                "de": "Korrekte RUTX50-API-Endpunkte für Modem-Erkennung und Statusüberwachung hinzugefügt. Verbesserte Verbindungstests mit Gerätestatus-Checks."
+            },
+            "1.0.14": {
+                "en": "Fixed modem parameter to use correct API schema (2-1 Primary) and enhanced HTTP 422 error handling",
+                "de": "Korrigierter Modem-Parameter für korrekte API-Schema (2-1 Primary) und verbesserte HTTP 422-Fehlerbehandlung"
+            },
+            "1.0.13": {
+                "en": "Added configurable modem parameter and fixed Blockly registration",
+                "de": "Hinzugefügter konfigurierbarer Modem-Parameter und behobene Blockly-Registrierung"
+            },
+            "1.0.12": {
+                "en": "Fixed SMS API payload format for HTTP 422 error",
+                "de": "Behobenes SMS-API-Payload-Format für HTTP 422-Fehler"
+            },
+            "1.0.11": {
+                "en": "Fixed Blockly sendTo block implementation",
+                "de": "Behobene Blockly sendTo-Block-Implementierung"
+            },
+            "1.0.10": {
+                "en": "Fixed configuration access in authentication",
+                "de": "Behobener Konfigurationszugriff in der Authentifizierung"
+            },
+            "1.0.9": {
+                "en": "Fixed authentication to use proven REST API endpoints",
+                "de": "Behobene Authentifizierung zur Verwendung bewährter REST-API-Endpunkte"
+            },
+            "1.0.8": {
+                "en": "Enhanced SMS page detection and added Blockly sendto elements",
+                "de": "Verbesserte SMS-Seitenerkennung und Blockly sendto-Elemente hinzugefügt"
+            },
+            "1.0.7": {
+                "en": "Fixed authentication verification with more lenient cookie validation",
+                "de": "Behobene Authentifizierungsverifizierung mit nachsichtigerer Cookie-Validierung"
+            },
+            "1.0.6": {
+                "en": "Complete rewrite with web-based authentication to fix HTML redirect issues",
+                "de": "Vollständige Überarbeitung mit webbasierter Authentifizierung zur Behebung von HTML-Weiterleitungsproblemen"
+            },
+            "1.0.5": {
+                "en": "Enhanced authentication with multi-endpoint support for different firmware versions",
+                "de": "Verbesserte Authentifizierung mit Multi-Endpunkt-Unterstützung für verschiedene Firmware-Versionen"
+            },
+            "1.0.0": {
+                "en": "Initial release with SMS functionality for Teltonika RUTX50",
+                "de": "Erste Version mit SMS-Funktionalität für Teltonika RUTX50"
+            }
+        },
+        "title": "Teltonika RUTX50 SMS Adapter",
+        "titleLang": {
+            "en": "Teltonika RUTX50 SMS Adapter",
+            "de": "Teltonika RUTX50 SMS Adapter"
+        },
+        "desc": {
+            "en": "Send SMS via Teltonika RUTX50 router with Blockly support",
+            "de": "SMS versenden über Teltonika RUTX50 Router mit Blockly-Unterstützung"
+        },
+        "authors": [
+            "ioBroker Adapter Developer"
+        ],
+        "keywords": [
+            "teltonika",
+            "rutx50",
+            "sms",
+            "mobile",
+            "router",
+            "blockly"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "teltonika-rutx50.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.teltonika-rutx50/master/admin/teltonika-rutx50.png",
+        "readme": "https://github.com/ioBroker/ioBroker.teltonika-rutx50/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "communication",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
+        "adminUI": {
+            "config": "html"
+        },
+        "supportCustoms": true,
+        "blockly": true,
+        "sendto": true,
+        "dependencies": [
+            {
+                "js-controller": ">=4.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=6.0.0"
+            }
+        ]
+    },
+    "native": {
+        "routerIp": "",
+        "username": "",
+        "password": "",
+        "timeout": 30000,
+        "protocol": "auto",
+        "updateInterval": 60000,
+        "modem": "1-1"
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Router connection status",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
+}

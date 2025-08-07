@@ -1,0 +1,53 @@
+<!-- Blockly sendTo block for teltonika-rutx50 adapter -->
+<script type="text/javascript">
+
+// Define the SendTo block for SMS
+if (typeof Blockly !== 'undefined') {
+    
+    // Define the sendTo SMS block
+    Blockly.Blocks['teltonika_rutx50_send_sms'] = {
+        init: function() {
+            this.appendDummyInput()
+                .appendField('send SMS via RUTX50');
+            this.appendValueInput('PHONE')
+                .setCheck('String')
+                .appendField('to number');
+            this.appendValueInput('MESSAGE')
+                .setCheck('String')
+                .appendField('message');
+            this.appendStatementInput('CALLBACK')
+                .appendField('callback');
+                
+            this.setPreviousStatement(true, null);
+            this.setNextStatement(true, null);
+            this.setColour('#FF6B35');
+            this.setTooltip('Send SMS via Teltonika RUTX50 router');
+            this.setHelpUrl('');
+        }
+    };
+    
+    // JavaScript code generator
+    Blockly.JavaScript['teltonika_rutx50_send_sms'] = function(block) {
+        var phone = Blockly.JavaScript.valueToCode(block, 'PHONE', Blockly.JavaScript.ORDER_ATOMIC) || '""';
+        var message = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC) || '""';
+        var callback = Blockly.JavaScript.statementToCode(block, 'CALLBACK');
+        
+        var code = 'sendTo("teltonika-rutx50.0", "sendSMS", {\n' +
+                   '    recipient: ' + phone + ',\n' +
+                   '    message: ' + message + '\n' +
+                   '}, function(result) {\n' +
+                   '    console.log("SMS sent:", result);\n' +
+                   callback +
+                   '});\n';
+        return code;
+    };
+}
+
+// Dictionary for translations
+if (typeof systemDictionary !== 'undefined') {
+    systemDictionary['Send SMS via RUTX50'] = {
+        'en': 'Send SMS via RUTX50',
+        'de': 'SMS über RUTX50 senden'
+    };
+}
+</script>
