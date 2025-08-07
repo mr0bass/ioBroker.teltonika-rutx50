@@ -178,7 +178,7 @@ Blockly.Sendto.blocks['sms'] =
     '  <field name="LOG"></field>' +
     '  <value name="TO">' +
     '    <shadow type="text">' +
-    '      <field name="TEXT">436642345678</field>' +
+    '      <field name="TEXT">+436641234567</field>' +
     '    </shadow>' +
     '  </value>' +
     '  <value name="TEXT">' +
